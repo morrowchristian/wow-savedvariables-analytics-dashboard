@@ -1,16 +1,38 @@
 # WoW SavedVariables Analytics Dashboard
 
-## Overview
-(placeholder)
-
 ## Tech Stack
-React, MUI, PHP, GitHub Codespaces
+- React + TypeScript + Vite
+- Material UI
+- PHP 8 backend
+- GitHub Codespaces
+- Custom Lua → JSON parser
 
-## Roadmap
-Links to Phases 1–5
+## Project Structure
+```txt
+backend/
+  public/        # PHP endpoints (parse.php, ping.php)
+  parser/        # SavedVariablesParser.php
 
-## Development Setup
-(placeholder)
+frontend/
+  src/
+    api/         # uploadSavedVariables.ts
+    components/  # UI components
+    state/       # Zustand store
+    types/       # NormalizedSavedVariables.ts
+```
 
-## Deployment
-(placeholder)
+## Development
+### Backend
+```bash
+php -S 0.0.0.0:8000 -t backend/public
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev -- --host
+```
+
+### Codespaces
+Ports 5173 (frontend) and 8000 (backend) are forwarded automatically.

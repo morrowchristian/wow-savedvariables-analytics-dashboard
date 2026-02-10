@@ -1,0 +1,26 @@
+{
+  "name": "WoW SavedVariables Dashboard",
+  "dockerFile": "Dockerfile",
+
+  "forwardPorts": [5173, 8000],
+
+  "postCreateCommand": "npm install --prefix frontend",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "dsznajder.es7-react-js-snippets",
+        "christian-kohler.path-intellisense",
+        "sumneko.lua",
+        "PKief.material-icon-theme",
+        "usernamehw.errorlens",
+        "github.codespaces"
+      ]
+    }
+  },
+
+  "remoteUser": "vscode"
+}
