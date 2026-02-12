@@ -4,6 +4,7 @@
 node_modules/
 dist/
 dist-ssr/
+.vite/
 *.local
 
 # Vite environment files
@@ -27,6 +28,11 @@ composer.phar
 # Uploaded files (if any)
 backend/uploads/
 
+# PHP cache / temp
+backend/.phpunit.cache/
+backend/storage/
+backend/cache/
+
 # -------------------------
 # OS / Editor Junk
 # -------------------------
@@ -37,6 +43,7 @@ Thumbs.db
 .vscode/
 .history/
 *.code-workspace
+.devcontainer/
 
 # -------------------------
 # Build Artifacts
@@ -46,8 +53,10 @@ Thumbs.db
 .cache/
 .tmp/
 temp/
+coverage/
 
 # -------------------------
 # Misc
 # -------------------------
-coverage/
+*.swp
+*.swo

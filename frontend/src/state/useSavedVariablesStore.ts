@@ -8,5 +8,8 @@ interface SavedVariablesState {
 
 export const useSavedVariablesStore = create<SavedVariablesState>((set) => ({
   data: null,
-  setData: (data) => set({ data }),
+  setData: (data) => {
+    console.log("Zustand store updated:", data);
+    set({ data });
+  },
 }));
