@@ -11,8 +11,8 @@
 
     "test:upload-backend": "ts-node scripts/testUpload.ts",
     "test:upload-frontend": "ts-node scripts/testFrontendUpload.ts",
-    
-    "test:all": "npm run test:upload-backend && npm run test:upload-frontend"
+    "test:invalid-file": "ts-node scripts/testInvalidUpload.ts",
+    "test:all": "npm run test:upload-backend && npm run test:upload-frontend && npm run test:invalid-file"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
