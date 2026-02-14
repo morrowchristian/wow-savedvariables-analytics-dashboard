@@ -24,7 +24,7 @@ frontend/
 ## Development
 ### Backend
 ```bash
-php -S 0.0.0.0:8000 -t backend/public
+php -S localhost:8000 -t backend/public
 ```
 
 ### Frontend
@@ -34,5 +34,9 @@ npm install
 npm run dev -- --host
 ```
 
-### Codespaces
-Ports 5173 (frontend) and 8000 (backend) are forwarded automatically.
+### Tests
+
+#### Integrated Upload Test
+```bash
+npx ts-node scripts/testUpload.ts
+```
