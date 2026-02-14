@@ -1,4 +1,4 @@
-import UploadPage from "./components/UploadPage";
+import UploadPage from "./pages/UploadPage";
 
 export default function App() {
   return <UploadPage />;
