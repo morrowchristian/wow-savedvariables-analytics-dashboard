@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
-import { uploadSavedVariables } from "../api/uploadSavedVariables"; // from Issue #1
+import { Button, Stack, Typography, Snackbar, Alert } from "@mui/material";
+import { uploadSavedVariables } from "../api/uploadSavedVariables";
+import { validateFile } from "../utils/validateFile";
 
 export default function UploadPage() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handlePickFile = () => {
     fileInputRef.current?.click();
@@ -13,14 +17,18 @@ export default function UploadPage() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
-
     if (!file) return;
 
-    if (!file.name.endsWith(".lua")) {
-      alert("Only .lua files are supported.");
+    const result = validateFile(file);
+
+    if (!result.valid) {
+      setErrorMessage(result.errorMessage || "Invalid file.");
+      setSnackbarOpen(true);
+      setSelectedFile(null);
       return;
     }
 
+    setErrorMessage(null);
     setSelectedFile(file);
   };
 
@@ -32,7 +40,6 @@ export default function UploadPage() {
     try {
       const result = await uploadSavedVariables(selectedFile);
       console.log("Upload result:", result);
-      // Later: route to results page or show parsed output
     } catch (err) {
       console.error("Upload failed:", err);
     } finally {
@@ -70,6 +77,16 @@ export default function UploadPage() {
       >
         {isUploading ? "Uploading..." : "Upload"}
       </Button>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarOpen(false)}
+      >
+        <Alert severity="error" onClose={() => setSnackbarOpen(false)}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 }
