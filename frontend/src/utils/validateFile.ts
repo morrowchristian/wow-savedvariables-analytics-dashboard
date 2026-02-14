@@ -2,7 +2,9 @@ export function validateFile(file: File) {
   const name = file.name;
   const lower = name.toLowerCase();
 
-  // 1. Must end with .lua
+  //
+  // 1. Extension validation
+  //
   if (!lower.endsWith(".lua")) {
     return {
       valid: false,
@@ -10,10 +12,11 @@ export function validateFile(file: File) {
     };
   }
 
-  // Remove the extension
-  const base = name.slice(0, -4);
+  //
+  // 2. Filename structure validation
+  //
+  const base = name.slice(0, -4); // remove ".lua"
 
-  // 2. Reject ".lua" (no base name)
   if (!base) {
     return {
       valid: false,
@@ -21,7 +24,6 @@ export function validateFile(file: File) {
     };
   }
 
-  // 3. Reject names ending with a dot before .lua (e.g., "double..lua")
   if (base.endsWith(".")) {
     return {
       valid: false,
@@ -29,7 +31,6 @@ export function validateFile(file: File) {
     };
   }
 
-  // 4. (Optional) Reject filenames with leading dots (".myaddon.lua")
   if (base.startsWith(".")) {
     return {
       valid: false,
@@ -37,5 +38,27 @@ export function validateFile(file: File) {
     };
   }
 
+  //
+  // 3. File size validation
+  //
+  const maxSize = 5 * 1024 * 1024; // 5 MB
+
+  if (file.size === 0) {
+    return {
+      valid: false,
+      errorMessage: `The file "${name}" is empty. SavedVariables files must contain data.`,
+    };
+  }
+
+  if (file.size > maxSize) {
+    return {
+      valid: false,
+      errorMessage: `The file "${name}" is too large (${file.size} bytes). Maximum allowed size is ${maxSize} bytes.`,
+    };
+  }
+
+  //
+  // 4. Passed all validation
+  //
   return { valid: true };
 }
