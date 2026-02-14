@@ -30,8 +30,7 @@ php -S localhost:8000 -t backend/public
 ### Frontend
 ```bash
 cd frontend
-npm install
-npm run dev -- --host
+npm run dev
 ```
 
 ### Tests
