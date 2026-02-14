@@ -1,0 +1,3 @@
+MyAddonDB = {
+  ["test"] = true,
+}
